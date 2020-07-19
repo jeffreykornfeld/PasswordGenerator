@@ -13,20 +13,32 @@ function writePassword() {
       else {
 
         //Choose case types
-        //var uppercase = confirm("Do you want uppercase letters?")
-        //var lowercase = confirm("Do you want lowercase letters?")
-        //var numbers = confirm("Do you want numbers?")
-        //var specChar = confirm("Do you want special characters?")
+        var uppercase = confirm("Do you want uppercase letters?")
+        var numbers = confirm("Do you want numbers?")
+        var specChar = confirm("Do you want special characters?")
 
         // generate password 
-        var password = generatePassword();
+        var password = generatePassword(uppercase, numbers, specChar);
         var passwordText = document.querySelector("#password");
         
-      function generatePassword() {
+      function generatePassword(uppercase, numbers, specChar) {
         password = "";
-        var values = "abcdefghijklmnopqrstuvwxyz"  
+
+        //Values Array
+        var values  = { 
+          "lowerc": "abcdefghijklmnopqrstuvwxyz",
+          "upperc": "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
+          "number": "1234567890",
+          "specChars": "!@#$%^&*"}
+        
+         //if statements for case types - concats the array. 
+        let chars = values.lowerc;
+        if (uppercase) { chars = chars.concat(values.upperc)}
+        if (numbers) { chars = chars.concat(values.number)}
+        if (specChar) { chars = chars.concat(values.specChars)}
+
         for(var i = 0; i < passLength; i++){
-        password += values[Math.floor(Math.random() * values.length)];
+        password += chars[Math.floor(Math.random() * chars.length)];
         console.log(password);
       }
       return password;
